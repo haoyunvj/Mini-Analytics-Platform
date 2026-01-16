@@ -12,3 +12,18 @@ services:
       - "5432:5432"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+
+  data-source:
+    build: ./data-source
+    container_name: mini_analytics_data_source
+    ports:
+      - "5001:5001"
+  pipeline:
+    build: ./pipeline
+    depends_on:
+      - postgres
+      - data-source
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: analytics
