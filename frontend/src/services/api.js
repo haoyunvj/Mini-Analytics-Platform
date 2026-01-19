@@ -1,7 +1,11 @@
 import axios from "axios";
 
 export const api = axios.create({
+<<<<<<< HEAD
   baseURL: "http://localhost:5002" // Flask (login, orders, sync)
+=======
+  baseURL: "http://localhost:5001" // Flask (login, orders, sync)
+>>>>>>> 765b7f8a846c781e017b53f9ca0b6ab763a34d77
 });
 
 export const dashboardApi = axios.create({
@@ -45,10 +49,16 @@ export const login = async (username, password) => {
 };
 
 export const syncData = async () => {
+<<<<<<< HEAD
   const token = localStorage.getItem("token"); 
   const res = await dashboardApi.post("/sync", {}, {
     headers: {
 
+=======
+  const token = localStorage.getItem("token"); // se precisar autenticação
+  const res = await axios.post("http://localhost:5002/sync", {}, {
+    headers: {
+>>>>>>> 765b7f8a846c781e017b53f9ca0b6ab763a34d77
       Authorization: `Bearer ${token}`,
     },
   });
