@@ -22,7 +22,7 @@ type Order struct {
 
 
 func fetchOrders() ([]Order, error) {
-	resp, err := http.Get("http://flask_api:5001/orders")
+	resp, err := http.Get("http://flask_api:5002/orders")
 
 	if err != nil {
 		return nil, err

@@ -5,8 +5,13 @@ WORKDIR /app
 COPY app.py .
 COPY data.csv .
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y gcc libpq-dev curl
 
-RUN pip install flask
+RUN pip install \
+    flask \
+    flask-cors \
+    flask-bcrypt \
+    psycopg2-binary \
+    prometheus-flask-exporter
 
 CMD ["python", "app.py"]

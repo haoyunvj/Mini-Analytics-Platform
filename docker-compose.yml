@@ -16,14 +16,14 @@ services:
     build: ./data-source
     container_name: flask_api
     ports:
-      - "5001:5001"
+      - "5001:5002"
     depends_on:
       - db
     volumes:
       - ./data-source/data.csv:/app/data.csv
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5001/orders"]
-      interval: 5s
+      test: ["CMD", "curl", "-f", "http://localhost:5002/orders"]
+      interval: 10s
       timeout: 3s
       retries: 5
 
@@ -45,6 +45,22 @@ services:
       - db
     environment:
       - API_TOKEN=secrettoken
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3001:3000"
 
 volumes:
   db_data:
